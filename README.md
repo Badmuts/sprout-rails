@@ -1,5 +1,27 @@
 # README
 
+## Getting started
+Make sure Docker and Docker Compose are installed then run:
+
+```sh
+$ docker-compose up
+```
+
+## Rails commands
+Make sure the app is running
+
+```sh
+$ docker-compose exec app bin/rails command
+```
+
+For example `db:create`
+
+```sh
+$ docker-compose exec app bin/rails db:create
+```
+
+---
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
