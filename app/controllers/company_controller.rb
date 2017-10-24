@@ -1,7 +1,6 @@
 class CompanyController < ApplicationController
     before_action :set_company, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user
-    before_action :parse_params
 
     access user: :all
 
@@ -32,7 +31,7 @@ class CompanyController < ApplicationController
     end
 
     def update
-        if @company.update_attributes(company_params)
+        if @company.update!(company_params)
             render :show, status: :ok
         else
             render json: @company.errors, status: :unprocessable_entity
@@ -52,10 +51,5 @@ class CompanyController < ApplicationController
 
         def company_params
             params.require(:company).permit(:name, :address, :zipcode, :city, :country)
-        end
-
-        def parse_params
-            @offset = params[:offset].presence.try(&:to_i) || 0
-            @limit = params[:limit].presence.try(&:to_i) || 25
         end
 end

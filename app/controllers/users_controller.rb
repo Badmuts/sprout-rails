@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user, only: [:me, :destroy, :update, :show, :index]
-    before_action :parse_params
     
     wrap_parameters User, include: [:email, :password]
     
@@ -18,7 +17,7 @@ class UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         
-        if @user.save
+        if @user.save!
             render :show, status: :created
         else
             render json: @user.errors, status: :unprocessable_entity
@@ -26,8 +25,8 @@ class UsersController < ApplicationController
     end
 
     def update
-        if @user.update_attributes(user_params)
-            render json: @user, status: :ok
+        if @user.update!(user_params)
+            render :show, status: :ok
         else
             render json: @user.errors, status: :unprocessable_entity
         end
@@ -51,10 +50,5 @@ class UsersController < ApplicationController
 
         def user_params
             params.require(:user).permit(:email, :password, :name)
-        end
-
-        def parse_params
-            @offset = params[:offset].presence.try(&:to_i) || 0
-            @limit = params[:limit].presence.try(&:to_i) || 25
         end
 end
