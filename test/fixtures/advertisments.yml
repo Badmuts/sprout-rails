@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  body: MyText
+  amount: 1
+  delivery_date_from: 2017-10-29 15:42:51
+  price: 9.99
+  company: one
+  user: one
+
+two:
+  body: MyText
+  amount: 1
+  delivery_date_from: 2017-10-29 15:42:51
+  price: 9.99
+  company: two
+  user: two

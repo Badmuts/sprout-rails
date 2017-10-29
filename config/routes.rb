@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :advertisments
   post 'auth/login' => 'user_token#create'
   get 'users/me' => 'users#me'
   resources :users, :company
