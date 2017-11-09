@@ -20,8 +20,12 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 # Gem for soft deletes
 gem "paranoia", "~> 2.2"
+# Gem for authentication
 gem 'knock'
+# Gem for authorization
 gem 'petergate'
+# Gem for json serialization
+gem 'active_model_serializers', '~> 0.10.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
