@@ -9,6 +9,7 @@ class CompanyController < ApplicationController
     def index
         @companies = Company.all.limit(@limit).offset(@offset).order('id DESC')
         @count = Company.count
+        render json: @companies, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results"
     end
 
     def show

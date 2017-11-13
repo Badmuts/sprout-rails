@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     def index
         @users = User.all.limit(@limit).offset(@offset).order('id DESC')
         @count = User.count
-        render json: @users
+        render json: @users, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results"
     end
 
     def show
@@ -51,6 +51,6 @@ class UsersController < ApplicationController
         end
 
         def user_params
-            params.require(:user).permit(:email, :password, :name)
+            params.require(:user).permit(:email, :password, :name, :company)
         end
 end
