@@ -6,11 +6,17 @@ class AdvertismentsController < ApplicationController
     wrap_parameters Advertisment, include: [:body, :amount, :delivery_date_from, :price, :company, :user]
 
     def index
-        @advertisments = Advertisment.all.limit(@limit).offset(@offset).order('id DESC')
+        @advertisments = Advertisment
+            .all
+            .limit(@limit)
+            .offset(@offset)
+            .order('id DESC')
         @count = Advertisment.count
+        render json: @advertisments, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results"
     end
 
     def show
+        render json: @advertisment
     end
 
     def create
@@ -19,9 +25,9 @@ class AdvertismentsController < ApplicationController
         @advertisment.company = current_user.company
 
         if @advertisment.save!
-            render :show, status: :created
+            render json: @advertisment, status: :created
         else
-            render json: @user.errors, status: :unprocessable_entity
+            render json: @advertisment.errors, status: :unprocessable_entity
         end
     end
 
