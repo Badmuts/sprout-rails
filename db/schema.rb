@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029155932) do
+ActiveRecord::Schema.define(version: 20171115160536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "advertisments", force: :cascade do |t|
+  create_table "advertisements", force: :cascade do |t|
     t.text "body"
     t.integer "amount"
     t.datetime "delivery_date_from"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(version: 20171029155932) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.index ["company_id"], name: "index_advertisments_on_company_id"
-    t.index ["user_id"], name: "index_advertisments_on_user_id"
+    t.index ["company_id"], name: "index_advertisements_on_company_id"
+    t.index ["user_id"], name: "index_advertisements_on_user_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20171029155932) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "advertisments", "companies"
-  add_foreign_key "advertisments", "users"
+  add_foreign_key "advertisements", "companies"
+  add_foreign_key "advertisements", "users"
   add_foreign_key "users", "companies"
 end
