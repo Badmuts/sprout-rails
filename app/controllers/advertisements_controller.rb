@@ -3,7 +3,7 @@ class AdvertisementsController < ApplicationController
     before_action :authenticate_user
     access user: :all
 
-    wrap_parameters Advertisement, include: [:body, :amount, :delivery_date_from, :price, :company, :user]
+    wrap_parameters Advertisement, include: [:title, :body, :amount, :delivery_date_from, :price, :company, :user]
 
     def index
         @advertisements = Advertisement
@@ -41,6 +41,6 @@ class AdvertisementsController < ApplicationController
         end
 
         def advertisement_params
-            params.require(:advertisement).permit(:body, :amount, :delivery_date_from, :price, :company, :user)
+            params.require(:advertisement).permit(:title, :body, :amount, :delivery_date_from, :price, :company, :user)
         end
 end
