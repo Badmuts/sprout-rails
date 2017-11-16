@@ -13,6 +13,7 @@ class CompanyController < ApplicationController
     end
 
     def show
+        render json: @company
     end
     
     def create
