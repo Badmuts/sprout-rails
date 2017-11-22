@@ -4,5 +4,5 @@ class Advertisement < ApplicationRecord
   belongs_to :company
   belongs_to :user
 
-  scope :starts_with, -> (title) { where("title like ?", "#{title}%")}
+  scope :starts_with, -> (title) { where("title ILIKE ?", "%#{title}%")}
 end
