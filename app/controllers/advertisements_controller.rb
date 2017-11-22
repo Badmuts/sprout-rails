@@ -10,6 +10,7 @@ class AdvertisementsController < ApplicationController
             .all
             .limit(@limit)
             .offset(@offset)
+            .filter(params.slice(:starts_with))
             .order('id DESC')
         @count = Advertisement.count
         render  json: @advertisements, 
