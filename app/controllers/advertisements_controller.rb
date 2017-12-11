@@ -10,9 +10,9 @@ class AdvertisementsController < ApplicationController
             .all
             .limit(@limit)
             .offset(@offset)
-            .filter(params.slice(:starts_with))
+            .filter(advertisement_filter)
             .order('id DESC')
-        @count = Advertisement.count
+        @count = Advertisement.all.filter(advertisement_filter).count
         render  json: @advertisements, 
                 adapter: :json, 
                 meta: {count: @count, offset: @offset, limit: @limit },
@@ -43,5 +43,9 @@ class AdvertisementsController < ApplicationController
 
         def advertisement_params
             params.require(:advertisement).permit(:title, :body, :amount, :delivery_date_from, :price, :company, :user)
+        end
+
+        def advertisement_filter
+            params.slice(:title, :body)
         end
 end
