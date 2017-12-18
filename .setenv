@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
 alias bundle="docker-compose exec app bundle"
 alias rails="docker-compose exec app bundle exec rails"
+
+if [ -f ./.setenv.shared ]; then
+  source ./.setenv.shared
+fi
+
+if [ -f ./.setenv.${USER} ]; then
+  source ./.setenv.${USER}
+fi
