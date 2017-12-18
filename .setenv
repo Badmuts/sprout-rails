@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+alias bundle="docker-compose exec app bundle"
+alias rails="docker-compose exec app bundle exec rails"

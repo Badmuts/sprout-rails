@@ -1,13 +1,16 @@
 # README
 
 ## Getting started
+
 Make sure Docker and Docker Compose are installed then run:
 
 ```sh
+$ source .setenv
 $ docker-compose up
 ```
 
 ## Rails commands
+
 Make sure the app is running
 
 ```sh
@@ -19,6 +22,18 @@ For example `db:create`
 ```sh
 $ docker-compose exec app bin/rails db:create
 ```
+
+---
+
+## Todos
+
+* [ ] Accountbeheer
+* [ ] Authenticatie
+* [ ] Abonnementenbeheer
+* [ ] Advertenties (vraag en aanbod)
+* [ ] Notificaties voor vraag en aanbod (email of elders)
+* [ ] Advertentie beheer
+* [ ] Profiel pagina (bedrijfgegevens)
 
 ---
 
