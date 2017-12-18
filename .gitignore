@@ -15,4 +15,4 @@
 
 .byebug_history
 
-.setenv.*
+setenv.*

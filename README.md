@@ -5,7 +5,7 @@
 Make sure Docker and Docker Compose are installed then run:
 
 ```sh
-$ source .setenv
+$ source setenv
 $ docker-compose up
 ```
 
