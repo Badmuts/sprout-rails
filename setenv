@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 alias bundle="docker-compose exec app bundle"
 alias rails="docker-compose exec app bundle exec rails"
+alias logs="docker-compose logs -f --tail=50 app"
 
 if [ -f ./setenv.shared ]; then
   source ./setenv.shared
