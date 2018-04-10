@@ -6,4 +6,5 @@ class Advertisement < ApplicationRecord
 
   scope :title, -> (title) { where("title ILIKE ?", "%#{title}%")}
   scope :body, -> (body) { where("body ILIKE ?", "%#{body}%")}
+  scope :ad_type, -> (ad_type) { where("ad_type = ?", ad_type) }
 end

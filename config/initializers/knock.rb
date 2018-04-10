@@ -8,7 +8,9 @@ Knock.setup do |config|
   ##
   ## Default:
   # config.token_lifetime = 1.day
-
+  if Rails.env.development?
+    config.token_lifetime = 1.year 
+  end
 
   ## Audience claim
   ## --------------

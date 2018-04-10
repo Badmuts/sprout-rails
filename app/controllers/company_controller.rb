@@ -6,6 +6,8 @@ class CompanyController < ApplicationController
 
     wrap_parameters Company, include: [:name, :address, :zipcode, :city, :country]
 
+    rescue_from ActiveRecord::RecordNotFound, :with => :not_found 
+
     def index
         @companies = Company.all.limit(@limit).offset(@offset).order('id DESC')
         @count = Company.count
@@ -53,5 +55,14 @@ class CompanyController < ApplicationController
 
         def company_params
             params.require(:company).permit(:name, :address, :zipcode, :city, :country)
+        end
+
+        def not_found
+            render json: {
+                :status => 404,
+                :developerMessage => "Company with id #{params[:id]} not found",
+                :userMessage => "not found",
+                :errorCode => "444444"
+            }, status: :not_found
         end
 end

@@ -4,7 +4,6 @@ class ApplicationController < ActionController::API
     before_action :parse_params
 
     private
-
         def parse_params
             @offset = params[:offset].presence.try(&:to_i) || 0
             @limit = params[:limit].presence.try(&:to_i) || 25
