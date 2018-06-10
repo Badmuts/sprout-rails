@@ -8,10 +8,11 @@ class AdvertisementsController < ApplicationController
     def index
         @advertisements = Advertisement
             .all
+            .includes(:company)
             .limit(@limit)
             .offset(@offset)
             .filter(advertisement_filter)
-            .order('id DESC')
+            .order('created_at DESC')
         @count = Advertisement.all.filter(advertisement_filter).count
         render  json: @advertisements, 
                 adapter: :json, 

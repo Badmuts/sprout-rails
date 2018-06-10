@@ -4,17 +4,18 @@ class CompanyController < ApplicationController
 
     access user: :all
 
-    wrap_parameters Company, include: [:name, :address, :zipcode, :city, :country]
+    wrap_parameters Company, include: [:name, :address, :zipcode, :city, :country, :logo, :logo_file_name, :company_photos_attributes]
 
     rescue_from ActiveRecord::RecordNotFound, :with => :not_found 
 
     def index
-        @companies = Company.all.limit(@limit).offset(@offset).order('id DESC')
+        @companies = Company.all.limit(@limit).offset(@offset).order('name ASC')
         @count = Company.count
         render json: @companies, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results"
     end
 
     def show
+        # @company.full_logo_url = URI.join(request.url, @company.logo.url(:small))
         render json: @company
     end
     
@@ -35,8 +36,10 @@ class CompanyController < ApplicationController
     end
 
     def update
+        puts "!!!!!"
+        puts company_params
         if @company.update!(company_params)
-            render :show, status: :ok
+            render json: @company, status: :ok
         else
             render json: @company.errors, status: :unprocessable_entity
         end
@@ -54,7 +57,8 @@ class CompanyController < ApplicationController
         end
 
         def company_params
-            params.require(:company).permit(:name, :address, :zipcode, :city, :country)
+            params[:company_photos_attributes] = params.delete(:company_photos) if params.has_key? :company_photos
+            params.require(:company).permit(:name, :address, :zipcode, :city, :country, :logo, :logo_file_name, { company_photos_attributes: [:id, :photo, :photo_file_name] })
         end
 
         def not_found

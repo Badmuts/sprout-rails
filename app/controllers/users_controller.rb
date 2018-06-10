@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     # User should be authenticated for these actions
     before_action :authenticate_user, only: [:me, :destroy, :update, :show, :index]
     
-    wrap_parameters User, include: [:email, :password]
+    wrap_parameters User, include: [:email, :password, :company]
     
     # Restrict access for specific roles
     access all: [:create], user: {except: [:create]}
@@ -34,6 +34,9 @@ class UsersController < ApplicationController
 
     # Updates found user with given params
     def update
+        if !current_user.has_roles?(:admin) && current_user.id != @user.id
+            return render status: :bad_request
+        end
         if @user.update!(user_params)
             render json: @user, status: :ok
         else
@@ -61,6 +64,6 @@ class UsersController < ApplicationController
 
         # Allowed params
         def user_params
-            params.require(:user).permit(:email, :password, :name, :company)
+            params.require(:user).permit(:email, :password, :name, company: [:id, :name, :address, :zipcode, :city, :country])
         end
 end
