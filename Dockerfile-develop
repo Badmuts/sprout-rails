@@ -1,0 +1,6 @@
+FROM badmuts/sprout:latest
+USER root
+RUN  bundle install --with development test\
+  && chown -R ruby .
+
+USER ruby
