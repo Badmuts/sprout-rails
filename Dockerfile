@@ -5,6 +5,8 @@ RUN  apt-get update \
   && apt-get install -y --no-install-recommends \
      build-essential \
      libpq-dev \
+     imagemagick \
+     file \
   && groupadd --gid 1000 ruby \
   && useradd --uid 1000 --gid ruby --shell /bin/bash --create-home ruby \
   && echo "ruby ALL=NOPASSWD: ALL" >> /etc/sudoers \

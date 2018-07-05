@@ -36,8 +36,6 @@ class CompanyController < ApplicationController
     end
 
     def update
-        puts "!!!!!"
-        puts company_params
         if @company.update!(company_params)
             render json: @company, status: :ok
         else
