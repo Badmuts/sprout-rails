@@ -43,7 +43,7 @@ class SubscriptionsController < ApplicationController
 				sequence_type: "first",
 				description: "Sprout premium",
 				redirect_url: params[:redirect_url],
-				webhook_url: "https://587584c6.ngrok.io/webhook"
+				webhook_url: "#{Rails.configuration.webhook_base_url}/webhook"
 			)
 
 			render 	json: { :checkout_url => payment.checkout_url }, 
