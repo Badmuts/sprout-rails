@@ -1,6 +1,7 @@
 class PlansController < ApplicationController
 	before_action :authenticate_user
-	access user: :all
+	access user: :index
+	access root_admin: :all
 
 	def index
 		render json: Plan.all
