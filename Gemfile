@@ -37,7 +37,7 @@ gem 'rack-cors'
 gem "paperclip", "~> 6.0.0"
 
 # Payment service provider responsible for charging customer subscriptions
-gem 'mollie-api-ruby'
+gem 'mollie-api-ruby', :git => 'https://github.com/mollie/mollie-api-ruby.git', :branch => 'mollie-v2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
