@@ -1,1 +1,0 @@
-json.(company, :id, :name, :address, :zipcode, :country, :city, :created_at)

@@ -32,3 +32,21 @@ users = [{email: 'd.rosbergen@gmail.com', password: 'Welkom#1', company: compani
 end
 users = User.create!(users)
 puts "Created #{users.count} users"
+
+advertisements = []
+250.times do |index|
+    picked_user = users.sample
+    picked_company = picked_user.company
+
+    advertisements.push({
+        title: Faker::SiliconValley.invention,
+        body: Faker::SiliconValley.motto,
+        price: Faker::Commerce.price,
+        amount: rand(1_000_000),
+        ad_type: ["demand", "supply"].sample,
+        company: picked_company,
+        user: picked_user
+    })
+end
+advertisements = Advertisement.create!(advertisements)
+puts "Created #{advertisements.count} advertisements"
