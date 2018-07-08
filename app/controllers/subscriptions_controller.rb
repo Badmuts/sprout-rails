@@ -3,6 +3,8 @@ class SubscriptionsController < ApplicationController
 	access user: :all
 
 	def index
+		subscriptions = Subscription.all.where company_id: current_user.company.id
+		render json: subscriptions, base_url: request.base_url
 	end
 
 	def create
@@ -40,7 +42,7 @@ class SubscriptionsController < ApplicationController
 				customer_id: current_user.company.mollie_customer_id,
 				sequence_type: "first",
 				description: "Sprout premium",
-				redirect_url: "https://google.com",
+				redirect_url: params[:redirect_url],
 				webhook_url: "https://587584c6.ngrok.io/webhook"
 			)
 
@@ -52,7 +54,14 @@ class SubscriptionsController < ApplicationController
 		end
 	end
 
-	def update
+	def destroy
+		subscription = Subscription.find params[:id]
+		if subscription.company == current_user.company
+			subscription.destroy!
+			head :no_content
+		else
+			head :not_found
+		end
 	end
 
 	private
