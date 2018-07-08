@@ -6,7 +6,7 @@ Make sure Docker and Docker Compose are installed then run:
 
 ```sh
 # First time start should build images first
-$ make release
+$ make
 # Start the application
 $ make dev
 # Or:

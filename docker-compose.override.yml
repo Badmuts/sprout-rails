@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile-develop
     ports:
       - 3000:3000
+    env_file: .env
     volumes:
       - '.:/usr/src/app'
       - /usr/src/app/vendor/bundle
