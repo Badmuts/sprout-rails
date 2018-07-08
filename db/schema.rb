@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180512154628) do
+ActiveRecord::Schema.define(version: 20180707210302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "advertisement_photos", force: :cascade do |t|
+    t.bigint "advertisement_id"
+    t.string "photo_file_name"
+    t.string "photo_content_type"
+    t.integer "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["advertisement_id"], name: "index_advertisement_photos_on_advertisement_id"
+  end
 
   create_table "advertisements", force: :cascade do |t|
     t.text "body"
@@ -71,6 +83,7 @@ ActiveRecord::Schema.define(version: 20180512154628) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "advertisement_photos", "advertisements"
   add_foreign_key "advertisements", "companies"
   add_foreign_key "advertisements", "users"
   add_foreign_key "company_photos", "companies"

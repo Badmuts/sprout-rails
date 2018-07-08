@@ -11,12 +11,12 @@ class CompanyController < ApplicationController
     def index
         @companies = Company.all.limit(@limit).offset(@offset).order('name ASC')
         @count = Company.count
-        render json: @companies, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results"
+        render json: @companies, base_url: request.base_url, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results"
     end
 
     def show
         # @company.full_logo_url = URI.join(request.url, @company.logo.url(:small))
-        render json: @company
+        render json: @company, base_url: request.base_url
     end
     
     def create
@@ -29,7 +29,7 @@ class CompanyController < ApplicationController
         @company = current_user.company
 
         if current_user.save
-            render :show, status: :created
+            render :show, base_url: request.base_url, status: :created
         else
             render json: @company.errors, status: :unprocessable_entity
         end
@@ -37,7 +37,7 @@ class CompanyController < ApplicationController
 
     def update
         if @company.update!(company_params)
-            render json: @company, status: :ok
+            render json: @company, base_url: request.base_url, status: :ok
         else
             render json: @company.errors, status: :unprocessable_entity
         end
@@ -55,8 +55,8 @@ class CompanyController < ApplicationController
         end
 
         def company_params
-            params[:company_photos_attributes] = params.delete(:company_photos) if params.has_key? :company_photos
-            params.require(:company).permit(:name, :address, :zipcode, :city, :country, :logo, :logo_file_name, { company_photos_attributes: [:id, :photo, :photo_file_name] })
+            params[:photos_attributes] = params.delete(:company_photos) if params.has_key? :company_photos
+            params.require(:company).permit(:name, :address, :zipcode, :city, :country, :logo, :logo_file_name, { photos_attributes: [:id, :photo, :photo_file_name] })
         end
 
         def not_found

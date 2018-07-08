@@ -13,12 +13,12 @@ class UsersController < ApplicationController
     def index
         @users = User.all.limit(@limit).offset(@offset).order('id DESC')
         @count = User.count
-        render json: @users, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results"
+        render json: @users, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results", base_url: request.base_url
     end
 
     # Shows specific user
     def show
-        render json: @user, status: :ok
+        render json: @user, base_url: request.base_url, status: :ok
     end
 
     # Creates an new User with given params
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         
         if @user.save!
-            render json: @user, status: :created
+            render json: @user, status: :created, base_url: request.base_url
         else
             render json: @user.errors, status: :unprocessable_entity
         end
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
             return render status: :bad_request
         end
         if @user.update!(user_params)
-            render json: @user, status: :ok
+            render json: @user, status: :ok, base_url: request.base_url
         else
             render json: @user.errors, status: :unprocessable_entity
         end
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     # Method to retrieve loggedin user
     def me
         @user = current_user
-        render json: @user
+        render json: @user, base_url: request.base_url
     end
 
     private
