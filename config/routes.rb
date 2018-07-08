@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :plans
   match '*all', to: proc { [204, {}, ['']] }, via: :options
   defaults format: :json do  
     post 'auth/login' => 'user_token#create'
