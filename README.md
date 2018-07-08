@@ -35,10 +35,10 @@ $ docker-compose exec app bundle exec rails db:create
 
 * [x] Accountbeheer
 * [x] Authenticatie
-* [ ] Abonnementenbeheer
-    - [ ] List plans
-    - [ ] Subscribe to plan via ideal payment via mollie
-    - [ ] Create webhook for mollie to fetch payment/subscription status
+* [x] Abonnementenbeheer
+    - [x] List plans
+    - [x] Subscribe to plan via ideal payment via mollie
+    - [x] Create webhook for mollie to fetch payment/subscription status
 * [x] Advertenties (vraag en aanbod)
 * [ ] Notificaties voor vraag en aanbod (email of elders)
 * [ ] Advertentie beheer
