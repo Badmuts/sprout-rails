@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
@@ -19,7 +19,7 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # Gem for soft deletes
-gem "paranoia", "~> 2.2"
+gem "paranoia", "~> 2.4.1"
 # Gem for authentication
 gem 'knock'
 # Gem for authorization
@@ -33,6 +33,12 @@ gem 'active_model_serializers', '~> 0.10.0'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
 
+# Used for fileuploads and image processing: https://github.com/thoughtbot/paperclip
+gem "paperclip", "~> 6.0.0"
+
+# Payment service provider responsible for charging customer subscriptions
+gem 'mollie-api-ruby', :git => 'https://github.com/mollie/mollie-api-ruby.git', :branch => 'mollie-v2'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -43,7 +49,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+  gem "faker", "~> 1.8.7"
+  # gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

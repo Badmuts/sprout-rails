@@ -14,3 +14,9 @@
 !/tmp/.keep
 
 .byebug_history
+
+/public/system
+
+setenv.*
+
+.env

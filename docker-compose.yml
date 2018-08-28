@@ -3,14 +3,13 @@ version: '3.1'
 services:
   app:
     restart: unless-stopped
+    image: badmuts/sprout:latest
     build: .
-    ports:
-      - 3000:3000
-    volumes:
-      - '.:/usr/src/app'
 
   db:
     restart: unless-stopped
     image: postgres:9.6.5-alpine
-    ports:
-      - 5432:5432
+
+  redis:
+      restart: unless-stopped
+      image: redis:4-alpine

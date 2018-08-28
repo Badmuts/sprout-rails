@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company: one
+  plan: one
+  deleted_at: 2018-07-08 17:43:54
+
+two:
+  company: two
+  plan: two
+  deleted_at: 2018-07-08 17:43:54

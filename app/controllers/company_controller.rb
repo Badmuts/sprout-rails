@@ -4,16 +4,19 @@ class CompanyController < ApplicationController
 
     access user: :all
 
-    wrap_parameters Company, include: [:name, :address, :zipcode, :city, :country]
+    wrap_parameters Company, include: [:name, :address, :zipcode, :city, :country, :logo, :logo_file_name, :company_photos_attributes]
+
+    rescue_from ActiveRecord::RecordNotFound, :with => :not_found 
 
     def index
-        @companies = Company.all.limit(@limit).offset(@offset).order('id DESC')
+        @companies = Company.all.limit(@limit).offset(@offset).order('name ASC')
         @count = Company.count
-        render json: @companies, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results"
+        render json: @companies, base_url: request.base_url, adapter: :json, meta: {count: @count, offset: @offset, limit: @limit }, meta_key: "metadata", root: "results"
     end
 
     def show
-        render json: @company
+        # @company.full_logo_url = URI.join(request.url, @company.logo.url(:small))
+        render json: @company, base_url: request.base_url
     end
     
     def create
@@ -26,7 +29,7 @@ class CompanyController < ApplicationController
         @company = current_user.company
 
         if current_user.save
-            render :show, status: :created
+            render :show, base_url: request.base_url, status: :created
         else
             render json: @company.errors, status: :unprocessable_entity
         end
@@ -34,7 +37,7 @@ class CompanyController < ApplicationController
 
     def update
         if @company.update!(company_params)
-            render :show, status: :ok
+            render json: @company, base_url: request.base_url, status: :ok
         else
             render json: @company.errors, status: :unprocessable_entity
         end
@@ -52,6 +55,16 @@ class CompanyController < ApplicationController
         end
 
         def company_params
-            params.require(:company).permit(:name, :address, :zipcode, :city, :country)
+            params[:photos_attributes] = params.delete(:company_photos) if params.has_key? :company_photos
+            params.require(:company).permit(:name, :address, :zipcode, :city, :country, :logo, :logo_file_name, { photos_attributes: [:id, :photo, :photo_file_name] })
+        end
+
+        def not_found
+            render json: {
+                :status => 404,
+                :developerMessage => "Company with id #{params[:id]} not found",
+                :userMessage => "not found",
+                :errorCode => "444444"
+            }, status: :not_found
         end
 end

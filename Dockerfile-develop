@@ -1,0 +1,13 @@
+FROM badmuts/sprout:latest
+USER root
+RUN  apt-get update \
+  && apt-get install -y --no-install-recommends \
+     build-essential \
+     libpq-dev \
+     git \
+  && bundle config --delete frozen \
+  && bundle install --with development test \
+  && chown -R ruby . \
+  && apt-get purge -y --auto-remove build-essential
+
+USER ruby
