@@ -5,8 +5,11 @@ Rails.application.routes.draw do
     get 'users/me' => 'users#me'
     resources :users, :advertisements
     resources :company do ||
-    	resources :photos
+      resources :photos
     end
+    resources :subscriptions
+    resources :plans
+    post 'webhook' => 'webhook#create'
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   end
 end

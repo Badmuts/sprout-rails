@@ -26,8 +26,6 @@ class AdvertisementsController < ApplicationController
     end
 
     def create
-        puts "!!!!!!!!!!!!!!!!!!!!"
-        puts advertisement_params
         @advertisement = Advertisement.new(advertisement_params)
         @advertisement.user = current_user
         @advertisement.company = current_user.company

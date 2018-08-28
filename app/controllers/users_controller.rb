@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     # User should be authenticated for these actions
     before_action :authenticate_user, only: [:me, :destroy, :update, :show, :index]
     
-    wrap_parameters User, include: [:email, :password, :company]
+    wrap_parameters User, include: [:email, :password, :company_attributes]
     
     # Restrict access for specific roles
     access all: [:create], user: {except: [:create]}
@@ -64,6 +64,6 @@ class UsersController < ApplicationController
 
         # Allowed params
         def user_params
-            params.require(:user).permit(:email, :password, :name, company: [:id, :name, :address, :zipcode, :city, :country])
+            params.require(:user).permit(:email, :password, :name, :company_attributes => [:name, :address, :zipcode, :city, :country])
         end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180707210302) do
+ActiveRecord::Schema.define(version: 20180708172651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20180707210302) do
     t.string "logo_content_type"
     t.integer "logo_file_size"
     t.datetime "logo_updated_at"
+    t.string "mollie_customer_id"
   end
 
   create_table "company_photos", force: :cascade do |t|
@@ -68,6 +69,26 @@ ActiveRecord::Schema.define(version: 20180707210302) do
     t.datetime "photo_updated_at"
     t.datetime "deleted_at"
     t.index ["company_id"], name: "index_company_photos_on_company_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.decimal "price", precision: 15, scale: 2
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "company_id"
+    t.bigint "plan_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status"
+    t.string "mollie_subscription_id"
+    t.index ["company_id"], name: "index_subscriptions_on_company_id"
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,5 +108,7 @@ ActiveRecord::Schema.define(version: 20180707210302) do
   add_foreign_key "advertisements", "companies"
   add_foreign_key "advertisements", "users"
   add_foreign_key "company_photos", "companies"
+  add_foreign_key "subscriptions", "companies"
+  add_foreign_key "subscriptions", "plans"
   add_foreign_key "users", "companies"
 end

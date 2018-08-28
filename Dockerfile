@@ -7,6 +7,7 @@ RUN  apt-get update \
      libpq-dev \
      imagemagick \
      file \
+     git \
   && groupadd --gid 1000 ruby \
   && useradd --uid 1000 --gid ruby --shell /bin/bash --create-home ruby \
   && echo "ruby ALL=NOPASSWD: ALL" >> /etc/sudoers \

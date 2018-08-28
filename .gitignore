@@ -18,3 +18,5 @@
 /public/system
 
 setenv.*
+
+.env
